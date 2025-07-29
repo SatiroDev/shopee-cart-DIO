@@ -1,14 +1,17 @@
-export const addItem = async (userCart, item) => {
+import { itemModel } from "../models/item-model"
+import { prisma } from "../lib/prisma"
+
+export const addItem = async (userCart: itemModel[], item: itemModel) => {
     userCart.push(item)
 }
 
-export const calculateTotal = async (userCart, name) => {
+export const calculateTotal = async (userCart: itemModel[], name: string) =>{
     console.log()
     console.log('Shopee Cart TOTAL IS:')
     console.log(userCart.reduce((total, item) => total + item.subTotal(), 0))
 }
 
-export const deleteItem = async (userCart, name) => {
+export const deleteItem = async (userCart: itemModel[], name: string) => {
     const index = userCart.findIndex((item) => item.name === name)
     if (index !== -1) {
         userCart.splice(index, 1)
@@ -16,7 +19,7 @@ export const deleteItem = async (userCart, name) => {
 }
 
 
-export const removeItem = async (userCart, item) => {
+export const removeItem = async (userCart: itemModel[], item: itemModel) => {
     const indexFound = userCart.findIndex((p) => p.name === item.name)
 
     if (indexFound === -1) {
@@ -33,7 +36,7 @@ export const removeItem = async (userCart, item) => {
     }
 }
 
-export const displayCart = async (userCart) => {
+export const displayCart = async (userCart: itemModel[]) => {
     console.log('Shopee cart list:')
     userCart.forEach((item, index) => {
         console.log(`${index +1}. ${item.name} - R$ ${item.price}| ${item.quantity}x | SubTotal: R$ ${item.subTotal()}`)
