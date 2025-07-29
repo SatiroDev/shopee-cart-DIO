@@ -1,5 +1,7 @@
 import { itemModel } from "../models/item-model"
 import { prisma } from "../lib/prisma"
+import { Request, Response } from "express"
+import { StatusCode } from "../models/status-code"
 
 export const addItem = async (userCart: itemModel[], item: itemModel) => {
     userCart.push(item)
@@ -36,10 +38,17 @@ export const removeItem = async (userCart: itemModel[], item: itemModel) => {
     }
 }
 
-export const displayCart = async (userCart: itemModel[]) => {
+export const displayCart = async (req: Request, res: Response) => {
     console.log('Shopee cart list:')
-    userCart.forEach((item, index) => {
-        console.log(`${index +1}. ${item.name} - R$ ${item.price}| ${item.quantity}x | SubTotal: R$ ${item.subTotal()}`)
-    });
+    const itemsInCart = await prisma.item.findMany()
+    if (itemsInCart.length === 0) {
+        return res.status(StatusCode.NotFound)
+    }
+    return res.status(StatusCode.OK).json({
+        error: false,
+        message: 'Itens adicionados no carrinho',
+        itemsInCart
+    })
+
 }
 
