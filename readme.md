@@ -20,6 +20,11 @@
 
 ---
 
+## 🚧 Em desenvolvimento
+Este projeto ainda está em evolução. Novas funcionalidades serão implementadas futuramente para torná-lo mais completo e robusto.
+
+---
+
 ## 🙋‍♂️ Autor
 
 **José Satiro**  
