@@ -3,8 +3,17 @@ import { prisma } from "../lib/prisma"
 import { Request, Response } from "express"
 import { StatusCode } from "../models/status-code"
 
-export const addItem = async (req: Request, res: Response) => {
-    
+export const addItem = async (item: itemModel) => {
+    await prisma.cart.create({
+        data: {
+            items: {
+                create: [
+                    item
+                ]
+            }
+        }
+    })
+    return
 }
 
 export const calculateTotal = async (userCart: itemModel[], name: string) =>{

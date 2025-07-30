@@ -20,10 +20,11 @@ model Item {
   price     Decimal @db.Decimal(10, 2)
   quantity Int
   subTotal  Decimal @db.Decimal(10, 2)
+  cartId Int
+  cart Cart? @relation(fields: [cartId], references: [id])
 }
 
 model Cart {
   id Int @id @default(autoincrement())
-  idItem 
-  subTotal  Decimal @db.Decimal(10, 2)
+  items Item[]
 }
