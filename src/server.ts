@@ -3,7 +3,8 @@
 // import * as cartService from "./services/cart"
 // import { itemModel } from "./models/item-model"
 import express from 'express'
-import router from './routes/routerCard'
+import routerCard from './routes/routerCard'
+import routerItem from './routes/routerItem'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -11,7 +12,9 @@ dotenv.config()
 const PORT = process.env.PORT
 const app = express()
 
-app.use('/', router)
+
+app.use('/', routerCard)
+app.use('/', routerItem)
 
 app.listen(PORT, () => {
     console.log('Servidor rodando na porta ' + PORT)
