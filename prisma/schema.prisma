@@ -21,3 +21,9 @@ model Item {
   quantity Int
   subTotal  Decimal @db.Decimal(10, 2)
 }
+
+model Cart {
+  id Int @id @default(autoincrement())
+  idItem 
+  subTotal  Decimal @db.Decimal(10, 2)
+}

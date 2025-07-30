@@ -3,7 +3,7 @@
 // import * as cartService from "./services/cart"
 // import { itemModel } from "./models/item-model"
 import express from 'express'
-import router from './routes/router'
+import router from './routes/routerCard'
 import dotenv from 'dotenv'
 
 dotenv.config()

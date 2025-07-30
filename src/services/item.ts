@@ -10,5 +10,10 @@ export const createItem = async (name: string, price: number, quantity: number):
             subTotal: subTotal
         }
     })
-    return item
+    return {
+        name: item.name,
+        price: item.price.toNumber(),
+        quantity: item.quantity,
+        subTotal: item.subTotal.toNumber()
+    }
 }
