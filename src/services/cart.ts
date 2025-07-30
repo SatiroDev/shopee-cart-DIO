@@ -3,17 +3,29 @@ import { prisma } from "../lib/prisma"
 import { Request, Response } from "express"
 import { StatusCode } from "../models/status-code"
 
-export const addItem = async (item: itemModel) => {
+export const createCart = async (idCart: number) => {
     await prisma.cart.create({
         data: {
+            id: idCart,
             items: {
                 create: [
-                    item
+                    
                 ]
             }
+        },
+        include: {
+            items: true
         }
     })
     return
+}
+
+
+export const existsCart = async (id: number) => {
+    const existCart = prisma.cart.findUnique({
+        where: {id}
+    })
+    return existCart
 }
 
 export const calculateTotal = async (userCart: itemModel[], name: string) =>{

@@ -3,8 +3,10 @@ import { displayCart, deleteItem } from '../services/cart'
 
 const router = express.Router()
 
-router.get('/card/items', displayCart)
+router.get('/cart/items', displayCart)
 
-router.delete('/card/item/:id', deleteItem)
+// router.post('cart/create')
+
+router.delete('/cart/item/:id', deleteItem)
 
 export default router

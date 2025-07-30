@@ -1,12 +1,13 @@
-import { itemModel } from "../models/item-model"
 import { Request ,Response } from "express"
 import { prisma } from "../lib/prisma"
 import { StatusCode } from "../models/status-code"
-import { addItem } from "./cart"
+import { createCart, existsCart } from "./cart"
 export const createItem = async (req: Request, res: Response) => {
     const { name, price, quantity, cartId } = req.body
-    console.log(req.body)
-    console.log(typeof(cartId))
+    const existCart = await existsCart(cartId)
+    if (!existCart) {
+        await createCart (cartId)
+    }
     const subTotal = price * quantity
     const item = await prisma.item.create({
         data: {
@@ -17,7 +18,7 @@ export const createItem = async (req: Request, res: Response) => {
             cartId
         }
     })
-    console.log(item.cartId)
+    console.log(item)
     const itemCreated = {
         name: item.name,
         price: item.price.toNumber(),
@@ -25,7 +26,6 @@ export const createItem = async (req: Request, res: Response) => {
         subTotal: item.subTotal.toNumber(),
         cartId: item.cartId
     }
-    // await addItem(itemCreated)
     return res.status(StatusCode.OK).json({
         error: false,
         message: 'Produto criado e adicionado ao carrinho',
